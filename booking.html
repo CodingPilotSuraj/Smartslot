@@ -1,71 +1,268 @@
-/* RESOURCE SEARCH */
+<!DOCTYPE html>
+<html lang="en">
 
-const searchInput =
-    document.getElementById("searchInput");
+<head>
 
-const categoryFilter =
-    document.getElementById("categoryFilter");
+    <meta charset="UTF-8">
 
-const resourceCards =
-    document.querySelectorAll(".resource-card");
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
+    <title>SmartSlot - Book Resource</title>
 
-function filterResources() {
+    <link rel="stylesheet" href="style.css">
 
-    const searchText =
-        searchInput.value.toLowerCase();
-
-    const category =
-        categoryFilter.value;
+</head>
 
 
-    resourceCards.forEach(function(card) {
-
-        const name =
-            card.dataset.name.toLowerCase();
-
-        const cardCategory =
-            card.dataset.category;
+<body>
 
 
-        const matchesSearch =
-            name.includes(searchText);
+<aside class="sidebar">
 
-        const matchesCategory =
-            category === "all" ||
-            category === cardCategory;
+    <div class="logo">
+        Smart<span>Slot</span>
+    </div>
 
+    <p class="menu-title">
+        MAIN MENU
+    </p>
 
-        if (matchesSearch && matchesCategory) {
+    <a href="index.html" class="menu">
+        🏠 Dashboard
+    </a>
 
-            card.style.display = "block";
+    <a href="resources.html" class="menu">
+        📚 Resources
+    </a>
 
-        } else {
+    <a href="booking.html" class="menu active">
+        📅 Book Resource
+    </a>
 
-            card.style.display = "none";
+    <a href="#" class="menu">
+        🎫 My Bookings
+    </a>
 
-        }
-
-    });
-
-}
-
-
-if (searchInput) {
-
-    searchInput.addEventListener(
-        "input",
-        filterResources
-    );
-
-}
+</aside>
 
 
-if (categoryFilter) {
+<main class="main">
 
-    categoryFilter.addEventListener(
-        "change",
-        filterResources
-    );
+    <header class="topbar">
 
-}
+        <div>
+
+            <h2>
+                Book a Resource
+            </h2>
+
+            <p>
+                Reserve a resource without scheduling conflicts.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <section class="booking-container">
+
+
+        <div class="booking-form-card">
+
+            <h3>
+                Create New Booking
+            </h3>
+
+            <p class="form-subtitle">
+                Select your resource and preferred time.
+            </p>
+
+
+            <form id="bookingForm">
+
+
+                <label>
+                    Resource
+                </label>
+
+                <select id="resource" required>
+
+                    <option value="">
+                        Select a resource
+                    </option>
+
+                    <option>
+                        Computer Lab 1
+                    </option>
+
+                    <option>
+                        Seminar Hall A
+                    </option>
+
+                    <option>
+                        Sports Ground
+                    </option>
+
+                    <option>
+                        Projector 1
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Booking Date
+                </label>
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                    required
+                >
+
+
+                <div class="time-row">
+
+                    <div>
+
+                        <label>
+                            Start Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="startTime"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            End Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="endTime"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <label>
+                    Purpose
+                </label>
+
+                <textarea
+                    id="purpose"
+                    placeholder="Why do you need this resource?"
+                    required>
+                </textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-booking">
+
+                    Check Availability & Book
+
+                </button>
+
+
+            </form>
+
+
+            <div id="bookingMessage">
+            </div>
+
+
+        </div>
+
+
+        <div class="booking-info-card">
+
+            <h3>
+                SmartSlot Protection
+            </h3>
+
+            <div class="protection">
+
+                <span>🛡️</span>
+
+                <div>
+
+                    <strong>
+                        Conflict Detection
+                    </strong>
+
+                    <p>
+                        SmartSlot automatically checks
+                        existing bookings before confirming
+                        your reservation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="protection">
+
+                <span>⚡</span>
+
+                <div>
+
+                    <strong>
+                        Instant Confirmation
+                    </strong>
+
+                    <p>
+                        Available resources can be booked
+                        instantly.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="protection">
+
+                <span>📅</span>
+
+                <div>
+
+                    <strong>
+                        Booking History
+                    </strong>
+
+                    <p>
+                        All your reservations are stored
+                        for easy tracking.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
