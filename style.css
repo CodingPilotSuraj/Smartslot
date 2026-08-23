@@ -1,0 +1,230 @@
+/* ==========================================================================
+   1. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ==========================================================================
+   2. LOGIN PAGE STYLES (index.html)
+   ========================================================================== */
+/* Login screen par body ko center karne ke liye ek alag wrapper class automatic use hogi */
+body:has(.logo-section) {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    border: 1px solid #e1e8ed;
+}
+
+.logo-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 8px;
+    border: 1px solid #ccd6dd;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007bff;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* ==========================================================================
+   3. SIDEBAR LAYOUT STYLES (dashboard.html)
+   ========================================================================== */
+.sidebar {
+    width: 260px;
+    background-color: #1e293b;
+    color: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.sidebar-menu li {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    color: #cbd5e1;
+}
+
+.sidebar-menu li:hover {
+    background-color: #334155;
+    color: #fff;
+}
+
+.sidebar-menu li.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Main Content Wrapper to shift screen right side of Sidebar */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: calc(100% - 260px);
+}
+
+.top-header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 15px;
+}
+
+.top-header h2 {
+    font-size: 26px;
+    color: #1e293b;
+}
+
+.top-header p {
+    color: #64748b;
+    margin-top: 5px;
+}
+
+/* Cards inside Dashboard */
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    margin-bottom: 20px;
+    max-width: 600px;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #1e293b;
+    font-size: 18px;
+}
+
+.card label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #475569;
+}
+
+/* QR code design */
+#qrcode img {
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   4. ADMIN DASHBOARD STYLES (admin.html)
+   ========================================================================== */
+/* Grid adjust for admin container when seen standalone */
+body:has(#bookings-table) {
+    justify-content: center;
+    padding-top: 50px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+}
+
+table tr:hover {
+    background-color: #f8fafc;
+}
+
+ul#penalty-list {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+ul#penalty-list li {
+    padding: 8px 12px;
+    background: #fff5f5;
+    border-left: 4px solid #ef4444;
+    margin-bottom: 6px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+}
