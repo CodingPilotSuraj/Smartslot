@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartslot - User Dashboard</title>
+    <!-- Humari CSS design file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- QR Code Library (Instant QR banane ke liye) -->
+    <script src="https://cloudflare.com"></script>
+</head>
+<body>
+
+    <!-- SIDEBAR SECTION (Left Side) -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <span>⏰</span> Smartslot
+        </div>
+        <ul class="sidebar-menu">
+            <!-- In buttons par click karne se right side ka content badlega -->
+            <li class="active" onclick="switchTab('book-slot')">📅 Book a Slot</li>
+            <li onclick="switchTab('my-bookings')">📋 My Bookings</li>
+            <li onclick="switchTab('ai-suggest')">💡 AI Suggestions</li>
+            <li onclick="logout()" style="color: #e74c3c; margin-top: 50px; font-weight: bold;">🚪 Logout</li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT AREA (Right Side) -->
+    <div class="main-content">
+        <!-- Top Header for Welcome Message -->
+        <div class="top-header">
+            <h2 id="welcome-msg">Welcome, User! 👋</h2>
+            <p>Time bachao aur slot book karo online.</p>
+        </div>
+
+        <!-- TAB 1: BOOK A SLOT (Default Visible) -->
+        <div id="tab-book-slot" class="tab-content active-tab">
+            <div class="card">
+                <h3>Select Resource & Time</h3>
+                
+                <label>Choose Resource:</label>
+                <select id="resource">
+                    <option value="Computer Lab 1">💻 Computer Lab 1 (Cap: 50)</option>
+                    <option value="Seminar Hall">🏛️ Seminar Hall (Cap: 150)</option>
+                    <option value="Projector Room">📽️ Projector Room (Cap: 10)</option>
+                </select>
+
+                <label>Select Time Slot:</label>
+                <select id="timeslot">
+                    <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+                    <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                </select>
+
+                <label>Reason for Booking:</label>
+                <input type="text" id="reason" placeholder="e.g., Hackathon Practice">
+
+                <button onclick="generateTicket()">Book in 2 Clicks 🚀</button>
+            </div>
+
+            <!-- QR Code display area -->
+            <div class="card" id="qr-card" style="display: none; text-align: center;">
+                <h3>🎉 Booking Confirmed!</h3>
+                <p>Scan this QR code at the door to enter.</p>
+                <div id="qrcode" style="display: flex; justify-content: center; margin-top: 15px;"></div>
+            </div>
+        </div>
+
+        <!-- TAB 2: MY BOOKINGS (Hidden by default) -->
+        <div id="tab-my-bookings" class="tab-content" style="display: none;">
+            <div class="card">
+                <h3>Your Active Reservations</h3>
+                <div id="my-bookings-list">
+                    <p style="color: #888;">No active bookings. Book a slot from the menu!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: AI SUGGESTIONS (Hidden by default) -->
+        <div id="tab-ai-suggest" class="tab-content" style="display: none;">
+            <div class="card" style="background-color: #e8f4fd; border-left: 5px solid #2980b9;">
+                <h3>💡 Smart AI Assistant</h3>
+                <p>Humare AI ne aapke campus ka data check kiya hai:</p>
+                <ul style="text-align: left; line-height: 1.8;">
+                    <li><strong>Projector Room</strong> Tuesday ko 3:00 PM par hamesha free rehta hai.</li>
+                    <li><strong>Computer Lab 1</strong> me kal 2:00 PM se 4:00 PM ke beech kam bheed (rush) hogi.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking page ki JavaScript link -->
+    <script src="booking.js"></script>
+</body>
+</html>
