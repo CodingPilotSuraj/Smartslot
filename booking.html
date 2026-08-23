@@ -1,0 +1,71 @@
+/* RESOURCE SEARCH */
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const categoryFilter =
+    document.getElementById("categoryFilter");
+
+const resourceCards =
+    document.querySelectorAll(".resource-card");
+
+
+function filterResources() {
+
+    const searchText =
+        searchInput.value.toLowerCase();
+
+    const category =
+        categoryFilter.value;
+
+
+    resourceCards.forEach(function(card) {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const cardCategory =
+            card.dataset.category;
+
+
+        const matchesSearch =
+            name.includes(searchText);
+
+        const matchesCategory =
+            category === "all" ||
+            category === cardCategory;
+
+
+        if (matchesSearch && matchesCategory) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        filterResources
+    );
+
+}
+
+
+if (categoryFilter) {
+
+    categoryFilter.addEventListener(
+        "change",
+        filterResources
+    );
+
+}
