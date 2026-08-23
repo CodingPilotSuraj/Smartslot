@@ -6,8 +6,6 @@
     <title>Smartslot - User Dashboard</title>
     <!-- Humari CSS design file -->
     <link rel="stylesheet" href="style.css">
-    <!-- QR Code Library (Instant QR banane ke liye) -->
-    <script src="https://cloudflare.com"></script>
 </head>
 <body>
 
@@ -17,7 +15,6 @@
             <span>⏰</span> Smartslot
         </div>
         <ul class="sidebar-menu">
-            <!-- In buttons par click karne se right side ka content badlega -->
             <li class="active" onclick="switchTab('book-slot')">📅 Book a Slot</li>
             <li onclick="switchTab('my-bookings')">📋 My Bookings</li>
             <li onclick="switchTab('ai-suggest')">💡 AI Suggestions</li>
@@ -57,16 +54,11 @@
 
                 <button onclick="generateTicket()">Book in 2 Clicks 🚀</button>
             </div>
-
-            <!-- QR Code display area -->
-            <div class="card" id="qr-card" style="display: none; text-align: center;">
-                <h3>🎉 Booking Confirmed!</h3>
-                <p>Scan this QR code at the door to enter.</p>
-                <div id="qrcode" style="display: flex; justify-content: center; margin-top: 15px;"></div>
-            </div>
+            
+            <!-- QR code wala extra card yahan se poori tarah hata diya gaya hai -->
         </div>
 
-        <!-- TAB 2: MY BOOKINGS (Hidden by default) -->
+        <!-- TAB 2: MY BOOKINGS -->
         <div id="tab-my-bookings" class="tab-content" style="display: none;">
             <div class="card">
                 <h3>Your Active Reservations</h3>
@@ -76,7 +68,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: AI SUGGESTIONS (Hidden by default) -->
+        <!-- TAB 3: AI SUGGESTIONS -->
         <div id="tab-ai-suggest" class="tab-content" style="display: none;">
             <div class="card" style="background-color: #e8f4fd; border-left: 5px solid #2980b9;">
                 <h3>💡 Smart AI Assistant</h3>

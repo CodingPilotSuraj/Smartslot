@@ -1,76 +1,105 @@
-// Page load hote hi chalne wala code
+/**
+ * Smartslot - Booking Operations Engine (No QR Code Version)
+ */
+
 document.addEventListener("DOMContentLoaded", function() {
     const savedName = localStorage.getItem("loggedUser");
     
-    // Security check: Agar login nahi kiya toh wapas bhej do
     if (!savedName) {
-        alert("⚠️ Please login first!");
+        alert("⚠️ Access Denied! Please login from the main page first.");
         window.location.href = "index.html";
         return;
     }
     
-    // Naam update karna
-    document.getElementById("welcome-msg").innerText = `Welcome, ${savedName}! 👋`;
+    const welcomeHeading = document.getElementById("welcome-msg");
+    if (welcomeHeading) {
+        welcomeHeading.innerText = `Welcome, ${savedName}! 👋`;
+    }
 });
 
 // SIDEBAR TABS SWITCH LOGIC
 function switchTab(tabId) {
-    // 1. Saare tab content ko chhupao (hide)
     const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(content => content.style.display = 'none');
+    contents.forEach(function(content) {
+        content.style.display = 'none';
+    });
     
-    // 2. Sirf select kiye huye tab ko dikhao
-    document.getElementById(`tab-${tabId}`).style.display = 'block';
+    const targetTab = document.getElementById(`tab-${tabId}`);
+    if (targetTab) {
+        targetTab.style.display = 'block';
+    }
     
-    // 3. Sidebar menu highlights badalna
     const menuItems = document.querySelectorAll('.sidebar-menu li');
-    menuItems.forEach(item => item.classList.remove('active'));
+    menuItems.forEach(function(item) {
+        item.classList.remove('active');
+    });
     
-    // Click kiye huye element ko active class dena
-    event.currentTarget.classList.add('active');
+    const clickedElement = window.event ? window.event.target : null;
+    if (clickedElement && clickedElement.tagName === 'LI') {
+        clickedElement.classList.add('active');
+    }
 }
 
-// BOOKING & QR GENERATOR LOGIC
+// BOOKING EXECUTION ENGINE
 function generateTicket() {
-    const resource = document.getElementById("resource").value;
-    const timeslot = document.getElementById("timeslot").value;
-    const reason = document.getElementById("reason").value.trim();
-    const savedName = localStorage.getItem("loggedUser");
+    const resourceSelect = document.getElementById("resource");
+    const timeslotSelect = document.getElementById("timeslot");
+    const reasonInput = document.getElementById("reason");
+    
+    const resource = resourceSelect ? resourceSelect.value : "Unknown Resource";
+    const timeslot = timeslotSelect ? timeslotSelect.value : "Default Time";
+    const reason = reasonInput ? reasonInput.value.trim() : "";
+    const savedName = localStorage.getItem("loggedUser") || "Guest User";
     
     if (!reason) {
-        alert("⚠️ Please enter a reason for booking!");
+        alert("⚠️ Please enter a valid reason for booking this resource!");
+        if (reasonInput) reasonInput.focus();
         return;
     }
     
-    // 1. Admin ke liye data save karna (LocalStorage)
+    // CENTRAL DATABASE & CLASH CHECK
     let allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+    
+    let isAlreadyBooked = allBookings.some(function(booking) {
+        return booking.resource === resource && booking.time === timeslot && booking.status !== "Completed";
+    });
+    
+    if (isAlreadyBooked) {
+        alert(`❌ Slot Clash Alert!\n\nThis slot for "${resource}" during "${timeslot}" is already booked.\nPlease choose another time slot! ⏰`);
+        return;
+    }
+    
+    // Free Slot: Save to centralized local data store
     let newBooking = {
+        id: Date.now().toString(),
         student: savedName,
         resource: resource,
-        time: timeslot
+        time: timeslot,
+        purpose: reason,
+        status: "Active Tracking"
     };
     allBookings.push(newBooking);
     localStorage.setItem("allBookings", JSON.stringify(allBookings));
     
-    // 2. QR Code container saaf karna aur naya QR banana
-    document.getElementById('qrcode').innerHTML = ""; 
-    document.getElementById('qr-card').style.display = 'block'; // QR Card ko dikhao
+    // USER LOG: "My Bookings" Section table update
+    const myBookingsList = document.getElementById("my-bookings-list");
+    if (myBookingsList) {
+        myBookingsList.innerHTML = `
+            <div style="padding: 15px; background: #f8fafc; border-left: 5px solid #10b981; margin-bottom: 12px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h4 style="color: #1e293b; margin-bottom: 5px;">${resource}</h4>
+                <p style="font-size: 14px; color: #475569; margin: 2px 0;"><strong>Slot:</strong> ${timeslot}</p>
+                <p style="font-size: 14px; color: #475569; margin: 2px 0;"><strong>Reason:</strong> ${reason}</p>
+                <span style="color: #10b981; font-size: 12px; font-weight: bold;">
+                    ● Confirmed & Active
+                </span>
+            </div>
+        `;
+    }
     
-    new QRCode(document.getElementById("qrcode"), `User:${savedName}|Item:${resource}|Time:${timeslot}`);
-    
-    // 3. My Bookings section me live text add karna
-    document.getElementById("my-bookings-list").innerHTML = `
-        <div style="padding: 10px; background: #f1f2f6; border-left: 4px solid #2ed573; margin-bottom: 10px;">
-            <strong>${resource}</strong><br>
-            Time: ${timeslot} <br>
-            <span style="color: green; font-size: 12px;">● Confirmed</span>
-        </div>
-    `;
-    
-    alert(`🎉 Success! ${resource} booked for ${timeslot}.`);
+    alert(`🎉 Success! ${resource} has been successfully booked for ${timeslot}.`);
 }
 
-// LOGOUT LOGIC
+// LOGOUT
 function logout() {
     localStorage.removeItem("loggedUser");
     window.location.href = "index.html";
