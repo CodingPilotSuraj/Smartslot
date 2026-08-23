@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartslot - Corporate Management Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container" style="max-width: 900px; text-align: left; margin: 40px auto;">
+        
+        <div class="logo-section" style="text-align: center; margin-bottom: 30px;">
+            <span style="font-size: 40px;">📊</span>
+            <h2 style="margin-top: 10px; color: #1e293b;">Admin Resource Operations Control</h2>
+            <p style="color: #64748b; font-size: 14px;">Monitor structural allocation metrics live from client local database nodes.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+            <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+                <h4 style="color: #0056b3; margin-bottom: 5px;">Allocation Load factor</h4>
+                <p style="font-size: 18px; font-weight: bold; color: #1e293b;">Computer Lab 1 (85% Utilization)</p>
+            </div>
+            <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                <h4 style="color: #15803d; margin-bottom: 5px;">Core Gateway Monitoring</h4>
+                <p style="font-size: 18px; font-weight: bold; color: #1e293b;">WhatsApp Alerts Operational</p>
+            </div>
+        </div>
+
+        <!-- Section 1: Live Bookings Table with Processing Actions buttons -->
+        <div class="card" style="max-width: 100%; margin-bottom: 25px; padding: 20px;">
+            <h3 style="margin-bottom: 15px;">📅 Campus Wide Real-time Active System Tracks</h3>
+            
+            <table id="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Resource Allocation</th>
+                        <th>Time Framework</th>
+                        <th>Pipeline Status</th>
+                        <th>Operations Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS records placeholder target injection point -->
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 25px; display: flex; gap: 10px;">
+            <button onclick="clearAllData()" style="background-color: #e11d48; width: auto; padding: 12px 25px;">🗑️ Flush Active DB Logs</button>
+            <button onclick="logoutAdmin()" style="background-color: #64748b; width: 100%;">🚪 Safe Exit Admin Portal</button>
+        </div>
+
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
