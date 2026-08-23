@@ -3,11 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartslot</title>
+    <title>Smartslot - Login</title>
+    <!-- CSS file for beauty of entire project -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h3>Smartslot</h3>
-    <script src="script.js"></script>
+
+    <!-- Main Login Card Container -->
+    <div class="container">
+        <!-- Brand Icon and Heading -->
+        <div class="logo-section">
+            <span style="font-size: 40px;">⏰</span>
+            <h2 style="margin-top: 10px; color: #333;">Smartslot</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Book Anything Online & Save Time</p>
+        </div>
+
+        <!-- Login Form Fields -->
+        <div class="form-group">
+            <label for="username" style="display: block; text-align: left; font-weight: bold; margin-bottom: 5px; color: #555;">Enter Your Name:</label>
+            <input type="text" id="username" placeholder="Type your name or 'admin'..." autocomplete="off">
+        </div>
+
+        <!-- Login Button -->
+        <button onclick="handleLogin()" style="margin-top: 10px;">Login & See Resources 🚀</button>
+
+        <!-- Hackathon Help Note -->
+        <p style="font-size: 12px; color: #999; margin-top: 15px;">
+            💡 <strong>Hackathon Tip:</strong> Use name <em>'admin'</em> to access the management dashboard directly.
+        </p>
+    </div>
+
+    <!-- dedicated JavaScript logical file for login page-->
+    <script src="login.js"></script>
 </body>
 </html>
