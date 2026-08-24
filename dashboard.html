@@ -3,85 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartslot - User Dashboard</title>
-    <!-- Humari CSS design file -->
+    <title>Smartslot - Premium Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Interactive Calendar styling explicitly for grid view layout */
+        .calendar-section {
+            margin-top: 15px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .slot-box {
+            padding: 15px 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+            background: #fff;
+        }
+        .slot-box.available {
+            border-color: #10b981;
+            color: #10b981;
+            background: #f0fdf4;
+        }
+        .slot-box.available:hover {
+            background: #10b981;
+            color: #fff;
+        }
+        .slot-box.selected {
+            background: #007bff !important;
+            color: #fff !important;
+            border-color: #007bff !important;
+        }
+        .slot-box.booked {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #fef2f2;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .history-card {
+            border-left: 5px solid #64748b !important;
+            opacity: 0.85;
+            background: #f8fafc;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- SIDEBAR SECTION (Left Side) -->
+    <!-- SIDEBAR NAVIGATION -->
     <div class="sidebar">
         <div class="sidebar-brand">
             <span>⏰</span> Smartslot
         </div>
         <ul class="sidebar-menu">
-            <li class="active" onclick="switchTab('book-slot')">📅 Book a Slot</li>
-            <li onclick="switchTab('my-bookings')">📋 My Bookings</li>
+            <li class="active" onclick="switchTab('book-slot')">📅 Interactive Calendar</li>
+            <li onclick="switchTab('my-bookings')">📋 My Bookings & History</li>
             <li onclick="switchTab('ai-suggest')">💡 AI Suggestions</li>
             <li onclick="logout()" style="color: #e74c3c; margin-top: 50px; font-weight: bold;">🚪 Logout</li>
         </ul>
     </div>
 
-    <!-- MAIN CONTENT AREA (Right Side) -->
+    <!-- MAIN DASHBOARD ROUTER CONTENT -->
     <div class="main-content">
-        <!-- Top Header for Welcome Message -->
+        
         <div class="top-header">
             <h2 id="welcome-msg">Welcome, User! 👋</h2>
-            <p>Time bachao aur slot book karo online.</p>
+            <p>Select multiple slots interactively and manage your active assets timeline.</p>
         </div>
 
-        <!-- TAB 1: BOOK A SLOT (Default Visible) -->
+        <!-- TAB 1: INTERACTIVE CALENDAR BOOKING -->
         <div id="tab-book-slot" class="tab-content active-tab">
-            <div class="card">
-                <h3>Select Resource & Time</h3>
-                
-                <label>Choose Resource:</label>
-                <select id="resource">
+            <div class="card" style="max-width: 750px;">
+                <h3>Step 1: Choose Target Resource Space</h3>
+                <select id="resource" onchange="renderInteractiveCalendar()">
                     <option value="Computer Lab 1">💻 Computer Lab 1 (Cap: 50)</option>
                     <option value="Seminar Hall">🏛️ Seminar Hall (Cap: 150)</option>
                     <option value="Projector Room">📽️ Projector Room (Cap: 10)</option>
                 </select>
 
-                <label>Select Time Slot:</label>
-                <select id="timeslot">
-                    <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
-                    <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
-                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
-                </select>
-
-                <label>Reason for Booking:</label>
-                <input type="text" id="reason" placeholder="e.g., Hackathon Practice">
-
-                <button onclick="generateTicket()">Book in 2 Clicks 🚀</button>
-            </div>
-            
-            <!-- QR code wala extra card yahan se poori tarah hata diya gaya hai -->
-        </div>
-
-        <!-- TAB 2: MY BOOKINGS -->
-        <div id="tab-my-bookings" class="tab-content" style="display: none;">
-            <div class="card">
-                <h3>Your Active Reservations</h3>
-                <div id="my-bookings-list">
-                    <p style="color: #888;">No active bookings. Book a slot from the menu!</p>
+                <div class="calendar-section" style="margin-top: 25px;">
+                    <h3>Step 2: Click an Available Time Slot Grid 📅</h3>
+                    <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Live central server slots synchronization active:</p>
+                    
+                    <!-- Dynamic Grid Injector Point via JavaScript -->
+                    <div id="calendar-grid" class="grid-container"></div>
                 </div>
+
+                <div style="margin-top: 25px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Step 3: Purpose of Booking:</label>
+                    <input type="text" id="reason" placeholder="e.g., Final Year Project Presentation Practice...">
+                </div>
+
+                <button onclick="processGridBooking()" style="margin-top: 20px; background-color: #10b981;">
+                    Confirm Selected Slot Allocation 🚀
+                </button>
             </div>
         </div>
 
-        <!-- TAB 3: AI SUGGESTIONS -->
+        <!-- TAB 2: MULTIPLE ACTIVE RESOURCE LOGS & USER HISTORY -->
+        <div id="tab-my-bookings" class="tab-content" style="display: none;">
+            <div style="max-width: 750px;">
+                
+                <!-- Section A: Active Slots list tracking container -->
+                <div class="card" style="max-width: 100%;">
+                    <h3 style="color: #10b981; margin-bottom: 15px;">🟢 Your Current Active Resource Allocations</h3>
+                    <div id="active-bookings-container">
+                        <!-- Dynamic items layout array mapping injects here -->
+                    </div>
+                </div>
+
+                <!-- Section B: Logs History Container -->
+                <div class="card" style="max-width: 100%; border-color: #cbd5e1;">
+                    <h3 style="color: #64748b; margin-bottom: 15px;">📜 Your Past Booking History logs</h3>
+                    <div id="history-bookings-container">
+                        <!-- Closed/Completed/Cancelled rows logs target location -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 3: AI PLATFORM SUGGESTIONS -->
         <div id="tab-ai-suggest" class="tab-content" style="display: none;">
             <div class="card" style="background-color: #e8f4fd; border-left: 5px solid #2980b9;">
                 <h3>💡 Smart AI Assistant</h3>
                 <p>Humare AI ne aapke campus ka data check kiya hai:</p>
-                <ul style="text-align: left; line-height: 1.8;">
+                <ul style="text-align: left; line-height: 1.8; margin-top: 10px;">
                     <li><strong>Projector Room</strong> Tuesday ko 3:00 PM par hamesha free rehta hai.</li>
                     <li><strong>Computer Lab 1</strong> me kal 2:00 PM se 4:00 PM ke beech kam bheed (rush) hogi.</li>
                 </ul>
             </div>
         </div>
+
     </div>
 
-    <!-- Booking page ki JavaScript link -->
     <script src="booking.js"></script>
 </body>
 </html>
