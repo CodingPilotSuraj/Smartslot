@@ -56,6 +56,12 @@ function handleAdminLogin() {
     }
 }
 
+// KEYPRESS SUPPORT: Student Username box me Enter dabane par bhi login ho jaye
+document.getElementById('student-username')?.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        handleStudentLogin();
+    }
+});
 // KEYPRESS SUPPORT: Admin password box me Enter dabane par bhi login ho jaye
 document.getElementById('admin-password')?.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
