@@ -108,3 +108,11 @@ Follow these exact steps to demonstrate the structural synchronization capabilit
 3. **Step 3 (Verify Clash Security):** Log out, re-enter the interface under a different identity such as `Rahul`. Navigate to the calendar grid for `Computer Lab 1`. You will observe the `10:00 AM - 11:00 AM` box cell is entirely unclickable and color-locked to **🔴 Booked**. Any forced booking attempt triggers an execution block.
 4. **Step 4 (Admin Processing & Lifecycle Shift):** Log out, click the **Admin Access Portal** tab, type password `Admin@123` and login. Aman's entry is displayed under **Current Active Running Slots**. Tap **✔ Complete**. The record will jump smoothly into the permanent **Archived System Logs History** grid.
 5. **Step 5 (Check User Reflex Logs):** Log back into Aman's account view. Tap the **My Bookings & History** navigation element on the left sidebar. Aman's card is now auto-shifted out of active records and saved under **Past Booking History** carrying a green **✅ Successfully Released** seal mark.
+
+---
+
+[DEMO VIDEO](https://drive.google.com/file/d/1QQYeB-ybh0WiW9iqzwEGGhRfh_NJOqn8/view?usp=drivesdk)
+
+
+
+[PPT PRESENTATION](https://1drv.ms/p/c/e220036cf2c7097f/IQAEOr682DS3R7I5EcevfPCdAf-7aRgvhIWZQGPLJxsMwkc?e=CIHlhf)
